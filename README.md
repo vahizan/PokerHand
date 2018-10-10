@@ -17,4 +17,3 @@ The result of your poker hand compare can be one of these 3 options:
 
 You are free to use any libraries you want but please do not anything that already evaluates poker hands ;)
 
-Good luck!
