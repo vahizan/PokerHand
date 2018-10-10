@@ -1,0 +1,22 @@
+{
+  "name": "poker-test",
+  "version": "1.0.0",
+  "description": "Poker hand comparison",
+  "main": "src/pokerhand.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "poker",
+    "texas",
+    "holdem"
+	],
+	"private": true,
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "jest": "^23.6.0",
+    "regenerator-runtime": "^0.12.1"
+  }
+}
