@@ -10,8 +10,8 @@
     "poker",
     "texas",
     "holdem"
-	],
-	"private": true,
+  ],
+  "private": true,
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^23.6.0",
