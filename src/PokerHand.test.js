@@ -1,4 +1,5 @@
 import PokerHand, { Result,PokerCardValues } from './PokerHand.js';
+import {HandValues} from "./PokerHand";
 
 describe('PokerHand', () => {
 
@@ -248,6 +249,7 @@ describe('PokerHand', () => {
             expect(()=>{handOne.maxCard({A:2,B:3,X:6})}).toThrowError(Error);
         });
         test("should return the value of the highest card",()=>{
+            handOne = new PokerHand("AC 4S 5S 8C AH");
             let processed = handOne.processHand("AC 4S 5S 8C AH");
             expect(handOne.maxCard(processed.cardValues)).toBe(14);
         });
@@ -266,17 +268,20 @@ describe('PokerHand', () => {
             expect(()=>{handOne.maxPair({})}).toThrowError(Error);
         });
         test("should return the value max number of pairs - 2 Pairs",()=>{
-            let processed = handOne.processHand("AC 4S 5S 8C AH");
+            handOne = new PokerHand("AC 4S 5S 8C AH");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxPair(processed.cardMap)).toBe(1);
         });
         test("should return the value of max number of pairs - 4 of a kind",()=>{
-            let processed = handOne.processHand("AC AS AD 8C AH");
+            handOne = new PokerHand("AC AS AD 8C AH");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxPair(processed.cardMap)).toBe(2);
         });
         test("should return the value of max number of pairs - two different pairs",()=>{
-            let processed = handOne.processHand("8D AS AD 8C 7H");
+            handOne = new PokerHand("8D AS AD 8C 7H");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxPair(processed.cardMap)).toBe(2);
         });
@@ -297,44 +302,53 @@ describe('PokerHand', () => {
         });
 
         test("maxOccurrance - should return max no of occurrances of a value - One Pair",()=>{
-            let processed = handOne.processHand("AC 4S 5S 8C AH");
+            handOne = new PokerHand("AC 4S 5S 8C AH");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxOccurrance(processed.cardMap)).toBe(2);
         });
         test("maxOccurrance - should return the value of max number of occurrances - 4 of a kind",()=>{
-            let processed = handOne.processHand("AC AS AD 8C AH");
+            handOne = new PokerHand("AC AS AD 8C AH");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxOccurrance(processed.cardMap)).toBe(4);
         });
         test("should return the value of max number of occurrances - two different pairs",()=>{
-            let processed = handOne.processHand("8D AS AD 8C 7H");
+            handOne = new PokerHand("8D AS AD 8C 7H");
+            let processed = handOne.processHand();
             console.log("processed",processed);
             expect(handOne.maxOccurrance(processed.cardMap)).toBe(2);
         });
 
         //max consec
         test("maxConsec - should return max no of consecutive values - 0 consecutive numbers",()=>{
-            let processed = handOne.processHand("AC 4S 8S 8C AH");
+            handOne = new PokerHand("AC 4S 8S 8C AH");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(0);
         });
         test("maxConsec - should return max no of consecutive values - 2 consecutive numbers",()=>{
-            let processed = handOne.processHand("AC 9S 2S 8C AH");
+            handOne = new PokerHand("AC 9S 2S 8C AH");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(2);
         });
         test("maxConsec - should return max no of consecutive values - 4 consecutive numbers",()=>{
-            let processed = handOne.processHand("KC QS AD JC 7H");
+            handOne = new PokerHand("KC QS AD JC 7H");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(4);
         });
         test("maxConsec - should return max no of consecutive values - straight",()=>{
-            let processed = handOne.processHand("KC QS AD TC JH");
+            handOne = new PokerHand("KC QS AD TC JH");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(5);
         });
         test("maxConsec - should return max no of consecutive values - 3 consecutive values",()=>{
-            let processed = handOne.processHand("KC 2S AD TC JH");
+            handOne = new PokerHand("KC 2S AD TC JH");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(3);
         });
         test("maxConsec - should return max no of consecutive values - straight 2",()=>{
-            let processed = handOne.processHand("KC QH AD TC JH");
+            handOne = new PokerHand("KC QH AD TC JH");
+            let processed = handOne.processHand();
             expect(handOne.maxConsec(processed.cardValues)).toBe(5);
         });
 
@@ -342,15 +356,18 @@ describe('PokerHand', () => {
 
         //tenToAce
         test("tenToAce - should return false if all values are not consec",()=>{
-            let processed = handOne.processHand("AC 4S 8S 8C AH");
+            handOne = new PokerHand("AC 4S 8S 8C AH");
+            let processed = handOne.processHand();
             expect(handOne.tenToAce(processed.cardValues)).toBe(false);
         });
         test("tenToAce - should return true - straight and between 10 to A",()=>{
-            let processed = handOne.processHand("QC TS KS JC AH");
+            handOne = new PokerHand("QC TS KS JC AH");
+            let processed = handOne.processHand();
             expect(handOne.tenToAce(processed.cardValues)).toBe(true);
         });
         test("tenToAce - should return false - straight, but not between 10 to A",()=>{
-            let processed = handOne.processHand("2c 5s 4S 6C 3H");
+            handOne = new PokerHand("2c 5s 4S 6C 3H");
+            let processed = handOne.processHand();
             expect(handOne.tenToAce(processed.cardValues)).toBe(false);
         });
 
@@ -358,15 +375,18 @@ describe('PokerHand', () => {
         //isRoyalFlush
 
         test("isRoyalFlush - should return false as values aren't consec",()=>{
-            let processed = handOne.processHand("AC 4S 8S 8C AH");
+            handOne = new PokerHand("AC 4S 8S 8C AH");
+            let processed = handOne.processHand();
             expect(handOne.isRoyalFlush(processed.cardValues,processed.suits)).toBe(false);
         });
         test("isRoyalFlush - should return false - straight, between 10 to A, but not all in same suit",()=>{
-            let processed = handOne.processHand("QC TS KS JC AH");
+            handOne = new PokerHand("QC TS KS JC AH");
+            let processed = handOne.processHand();
             expect(handOne.isRoyalFlush(processed.cardValues,processed.suits)).toBe(false);
         });
         test("isRoyalFlush - should return false - straight, but not between 10 to A",()=>{
-            let processed = handOne.processHand("Qh th jh ah kH");
+            handOne = new PokerHand("Qh th jh ah kH");
+            let processed = handOne.processHand();
             expect(handOne.isRoyalFlush(processed.cardValues,processed.suits)).toBe(true);
         });
 
@@ -374,16 +394,137 @@ describe('PokerHand', () => {
 
     });
 
-        describe('compareWith()', () => {
+    describe('points(Hand)',()=>{
+            let handOne;
+            beforeEach(()=>{
+                handOne = null;
+            });
+            test("should return object with properties - highcard and points",()=>{
+                    handOne = new PokerHand("Ad As Tc 9s 8h");
+                 expect(handOne.pointsData(handOne) instanceof Object).toBe(true);
+                 expect(handOne.pointsData(handOne).hasOwnProperty("highCard")).toBe(true);
+                 expect(handOne.pointsData(handOne).hasOwnProperty("points")).toBe(true);
+                 expect(handOne.pointsData(handOne).hasOwnProperty("handValue")).toBe(true);
+            });
+            test("should return correct points value - highcard",()=>{
+                handOne = new PokerHand("Ad 3s Tc 9s 8h");
+                let expectedReturn = {
+                    highCard:14,
+                    points:1,
+                    handValue:HandValues[1]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+            });
+            test("should return correct points value - pair",()=>{
+                handOne = new PokerHand("Ad As Tc 9s 8h");
+                let expectedReturn = {
+                    highCard:14,
+                    points:2,
+                    handValue:HandValues[2]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+            });
+            test("should return correct points value - 2 pairs",()=>{
+                handOne = new PokerHand("Ad As Tc Ts 8h");
+                let expectedReturn = {
+                    highCard:14,
+                    points:3,
+                    handValue:HandValues[3]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+            });
+            test("should return correct points value - three of a kind",()=>{
+                handOne = new PokerHand("Ad As Ac Ts 8h");
+                let expectedReturn = {
+                    highCard:14,
+                    points:4,
+                    handValue:HandValues[4]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+
+            });
+            test("should return correct points value - straight",()=>{
+                handOne = new PokerHand("2d 3s 4c 5s 6h");
+                let expectedReturn = {
+                    highCard:6,
+                    points:5,
+                    handValue:HandValues[5]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+
+            });
+            test("should return correct points value - flush",()=>{
+                handOne = new PokerHand("7c Ac 9c Tc 8c");
+                let expectedReturn = {
+                    highCard:14,
+                    points:10,
+                    handValue:HandValues[10]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+
+            });
+            test("should return correct points value - full house - 1 pair and 3 of a kind",()=>{
+                handOne = new PokerHand("Ac Ad Ah Th Td");
+                let expectedReturn = {
+                    highCard:14,
+                    points:15,
+                    handValue:HandValues[15]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+
+            });
+            test("should return correct points value - four of a kind",()=>{
+                handOne = new PokerHand("Ac Ad Ah As Td");
+                let expectedReturn = {
+                    highCard:14,
+                    points:25,
+                    handValue:HandValues[25]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+
+            });
+            test("should return correct points value - straight flush",()=>{
+                handOne = new PokerHand("2c 3c 4c 5c 6c");
+                let expectedReturn = {
+                    highCard:6,
+                    points:50,
+                    handValue:HandValues[50]
+
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+            });
+            test("should return correct points value - royal flush - 100",()=>{
+                handOne = new PokerHand("Ac Tc Qc Jc Kc");
+                let expectedReturn = {
+                    highCard:14,
+                    points:100,
+                    handValue:HandValues[100]
+                }
+                expect(handOne.pointsData(handOne)).toEqual(expectedReturn);
+            });
+        });
+
+    describe('compareWith()', () => {
 
 		it(`ties`, () => {
 
 			const hand1 = new PokerHand('AC 4S 5S 8C AH');
 			const hand2 = new PokerHand('4S 5S 8C AS AD');
-
 			expect(hand1.compareWith(hand2)).toBe(Result.TIE);
 
 		});
+
+		test(`wins`, () => {
+            const hand1 = new PokerHand('AC AS 5S 8C AH');
+            const hand2 = new PokerHand('4S 5S 8C AS AD');
+            expect(hand1.compareWith(hand2)).toBe(Result.WIN);
+        });
+
+		test(`loses`, () => {
+            const hand1 = new PokerHand('AC AS 5S 8C AH');
+            const hand2 = new PokerHand('4S 5S 6S 7S 9S');
+            expect(hand1.compareWith(hand2)).toBe(Result.LOSS);
+        });
 
 
 
